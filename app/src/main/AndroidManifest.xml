@@ -12,6 +12,11 @@
         android:theme="@style/Theme.AndroidERestaurant"
         tools:targetApi="31">
         <activity
+            android:name=".MenuActivity"
+            android:exported="false"
+            android:label="@string/title_activity_menu"
+            android:theme="@style/Theme.AndroidERestaurant.NoActionBar" />
+        <activity
             android:name=".HomeActivity"
             android:exported="true"
             android:label="@string/app_name"

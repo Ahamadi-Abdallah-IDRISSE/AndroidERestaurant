@@ -1,5 +1,6 @@
 package fr.isen.idrisse.androiderestaurant
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +25,29 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
+    override fun onStart () {
+        super.onStart()
+        Log.d("Lifcylce", "HomeActivity onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("Lifcylce", "HomeActivity onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("Lifcylce", "HomeActivity onPause")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("Lifcylce", "HomeActivity onDestroy")
+    }
+
+
+
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -40,23 +64,36 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+
+
     private fun buttonsListener(){
         binding.bouttonEntrees.setOnClickListener {
-            Log.d("button",  "Click sur button entree")
-            Toast.makeText(this, "YO entree", Toast.LENGTH_SHORT).show()
+            //Log.d("button",  "Click sur button entree")
+            //Toast.makeText(this, "YO entree", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, MenuActivity::class.java)
+            intent.putExtra("buttonID", 0)
+            startActivity(intent)
         }
 
         binding.bouttonPlats.setOnClickListener {
-            Log.d("button","Click sur button plats")
-            Toast.makeText(this, "YO plats", Toast.LENGTH_SHORT).show()
+            //Log.d("button","Click sur button plats")
+            //Toast.makeText(this, "YO plats", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, MenuActivity::class.java)
+            intent.putExtra("buttonID", 1)
+            startActivity(intent)
         }
 
         binding.bouttonDesserts.setOnClickListener {
-            Log.d("button", "Click sur button Desserts")
-            Toast.makeText(this, "YO dessert", Toast.LENGTH_SHORT).show()
+            //Log.d("button", "Click sur button Desserts")
+            //Toast.makeText(this, "YO dessert", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, MenuActivity::class.java)
+            intent.putExtra("buttonID", 2)
+            startActivity(intent)
         }
 
 
     }
+
+
 
 }
