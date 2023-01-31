@@ -46,7 +46,7 @@ class MenuActivity : AppCompatActivity() {
 
     private fun showDatas(){
         binding.recyclerView.layoutManager= LinearLayoutManager(this)
-        binding.recyclerView.adapter= CustomAdapter(listOf("1", "2", "3"))
+        binding.recyclerView.adapter= CustomAdapter(listOf("1", "2", "3")){ position -> }
     }
 
     private fun categoryName (category: Category):String{
