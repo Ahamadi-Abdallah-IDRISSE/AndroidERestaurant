@@ -1,5 +1,6 @@
 package fr.isen.idrisse.androiderestaurant
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -46,7 +47,10 @@ class MenuActivity : AppCompatActivity() {
 
     private fun showDatas(){
         binding.recyclerView.layoutManager= LinearLayoutManager(this)
-        binding.recyclerView.adapter= CustomAdapter(listOf("1", "2", "3")){ position -> }
+        binding.recyclerView.adapter= CustomAdapter(listOf("1", "2", "3")){ position ->
+            val menuDetailsIntent = Intent(this, MenuDetailsActivity::class.java)
+            startActivity(menuDetailsIntent)
+        }
     }
 
     private fun categoryName (category: Category):String{
