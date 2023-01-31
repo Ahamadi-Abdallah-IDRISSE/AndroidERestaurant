@@ -17,11 +17,6 @@
             android:label="@string/title_activity_menu_details"
             android:theme="@style/Theme.AndroidERestaurant.NoActionBar" />
         <activity
-            android:name=".MenusDetailsActivity"
-            android:exported="false"
-            android:label="@string/title_activity_menus_details"
-            android:theme="@style/Theme.AndroidERestaurant.NoActionBar" />
-        <activity
             android:name=".MenuActivity"
             android:exported="false"
             android:label="@string/title_activity_menu"

@@ -5,7 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import fr.isen.idrisse.androiderestaurant.databinding.ActivityMenuBinding
+import fr.isen.idrisse.androiderestaurant.network.NetworkConstants
+import org.json.JSONObject
+import java.lang.reflect.Method
 
 
 enum class Category {ENTREE, PLAT, DESSERT}
@@ -62,7 +67,32 @@ class MenuActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart () {
+    private fun makeRequest () {
+        val queue = Volley.newRequestQueue(this)
+        val params = JSONObject()
+        params.put(NetworkConstants.idShopKey, 1)
+        val request = JsonObjectRequest(
+            Method.POST,
+            NetworkConstants.url,
+            params,
+            {
+                    result ->
+                // success of request
+                Log.d("request", result.toString(2))
+            },
+            {
+                    error ->
+                //Error when request
+                Log.e("request", error.toString())
+            }
+        )
+        queue.add(request)
+        //showDatas()
+    }
+
+
+
+override fun onStart () {
         super.onStart()
         Log.d("Lifcylce", "MenuActivity onStart")
     }
