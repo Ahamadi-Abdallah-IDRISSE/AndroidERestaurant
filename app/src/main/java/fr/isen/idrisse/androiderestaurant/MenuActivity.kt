@@ -5,12 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import fr.isen.idrisse.androiderestaurant.databinding.ActivityMenuBinding
+import fr.isen.idrisse.androiderestaurant.network.MenuResult
 import fr.isen.idrisse.androiderestaurant.network.NetworkConstants
 import org.json.JSONObject
-import java.lang.reflect.Method
+
 
 
 enum class Category {ENTREE, PLAT, DESSERT}
@@ -30,7 +34,8 @@ class MenuActivity : AppCompatActivity() {
         val category = intent.getSerializableExtra(extraKey) as? Category
 
         supportActionBar?.title = categoryName(category ?: Category.ENTREE)
-        showDatas()
+        //showDatas()
+        makeRequest()
 
 /*
         val buttonID = intent.getIntExtra("buttonID", 0)
@@ -72,7 +77,7 @@ class MenuActivity : AppCompatActivity() {
         val params = JSONObject()
         params.put(NetworkConstants.idShopKey, 1)
         val request = JsonObjectRequest(
-            Method.POST,
+            Request.Method.POST,
             NetworkConstants.url,
             params,
             {
@@ -90,7 +95,10 @@ class MenuActivity : AppCompatActivity() {
         //showDatas()
     }
 
-
+    private  fun parseData (data: String)
+    {
+        val result = GsonBuilder().create().fromJson(data, MenuResult::class.java)
+    }
 
 override fun onStart () {
         super.onStart()
