@@ -14,50 +14,30 @@ import fr.isen.idrisse.androiderestaurant.databinding.ActivityMenuBinding
 import fr.isen.idrisse.androiderestaurant.network.MenuResult
 import fr.isen.idrisse.androiderestaurant.network.NetworkConstants
 import org.json.JSONObject
-
-
-
 enum class Category {ENTREE, PLAT, DESSERT}
 class MenuActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMenuBinding
-
     companion object {
-        val extraKey = "extraKey"
+        val CATEGORYKEY = "CATEGORYKEY"
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding =  ActivityMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val category = intent.getSerializableExtra(extraKey) as? Category
-
-        supportActionBar?.title = categoryName(category ?: Category.ENTREE)
+        val extra = intent.getSerializableExtra(CATEGORYKEY) as? Category
+        val category = extra ?: Category.ENTREE
+        supportActionBar?.title = categoryName(category)
         //showDatas()
+
         makeRequest()
 
-/*
-        val buttonID = intent.getIntExtra("buttonID", 0)
-
-        if (buttonID == 0)
-        {
-            binding.textViewMenu.text = getString(R.string.menuEntrees)
-        }
-        else if (buttonID == 1)
-        {
-            binding.textViewMenu.text = getString(R.string.menuPlats)
-        }
-        else if (buttonID == 2)
-        {
-            binding.textViewMenu.text = getString(R.string.menuDesserts)
-        }
-*/
     }
 
-    private fun showDatas(){
+    private fun showDatas(category: fr.isen.idrisse.androiderestaurant.network.Category){
         binding.recyclerView.layoutManager= LinearLayoutManager(this)
-        binding.recyclerView.adapter= CustomAdapter(listOf("1", "2", "3")){ position ->
+        binding.recyclerView.adapter= CustomAdapter(category.items){
             val menuDetailsIntent = Intent(this, MenuDetailsActivity::class.java)
             startActivity(menuDetailsIntent)
         }
@@ -65,6 +45,15 @@ class MenuActivity : AppCompatActivity() {
 
     private fun categoryName (category: Category):String{
         return when(category)
+        {
+            Category.ENTREE -> R.string.starter.toString()
+            Category.PLAT -> R.string.main.toString()
+            Category.DESSERT -> R.string.finish.toString()
+
+        }
+    }
+    private fun categoryFilterKey ():String{
+        return when (currentCategory)
         {
             Category.ENTREE -> "ENTREES"
             Category.PLAT -> "PLATS"
@@ -83,6 +72,7 @@ class MenuActivity : AppCompatActivity() {
             {
                     result ->
                 // success of request
+                parseData(Result.toString())
                 Log.d("request", result.toString(2))
             },
             {
@@ -98,6 +88,8 @@ class MenuActivity : AppCompatActivity() {
     private  fun parseData (data: String)
     {
         val result = GsonBuilder().create().fromJson(data, MenuResult::class.java)
+        val category = result.data.first{it.name == categoryFilterKey()}
+        showDatas(category)
     }
 
 override fun onStart () {

@@ -10,10 +10,13 @@ import android.view.MenuItem
 import android.widget.Toast
 import fr.isen.idrisse.androiderestaurant.databinding.ActivityHomeBinding
 
+
+//enum class Category {ENTREE, PLAT, DESSERT}
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityHomeBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,29 +71,24 @@ class HomeActivity : AppCompatActivity() {
 
     private fun buttonsListener(){
         binding.bouttonEntrees.setOnClickListener {
-            //Log.d("button",  "Click sur button entree")
-            //Toast.makeText(this, "YO entree", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MenuActivity::class.java)
-            intent.putExtra("buttonID", 0)
-            startActivity(intent)
+            showCategory(Category.ENTREE)
         }
 
         binding.bouttonPlats.setOnClickListener {
-            //Log.d("button","Click sur button plats")
-            //Toast.makeText(this, "YO plats", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MenuActivity::class.java)
-            intent.putExtra("buttonID", 1)
-            startActivity(intent)
+            showCategory(Category.PLAT)
+
         }
 
         binding.bouttonDesserts.setOnClickListener {
-            //Log.d("button", "Click sur button Desserts")
-            //Toast.makeText(this, "YO dessert", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MenuActivity::class.java)
-            intent.putExtra("buttonID", 2)
-            startActivity(intent)
-        }
-
+            showCategory(Category.DESSERT)
+                    }
     }
+    private fun showCategory(category: Category)
+    {
+        val intent = Intent(this, MenuActivity::class.java)
+        intent.putExtra(MenuActivity.CATEGORYKEY, category)
+        startActivity(intent)
+    }
+
 
 }

@@ -1,5 +1,4 @@
 package fr.isen.idrisse.androiderestaurant.network
-
 import android.util.Log
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
