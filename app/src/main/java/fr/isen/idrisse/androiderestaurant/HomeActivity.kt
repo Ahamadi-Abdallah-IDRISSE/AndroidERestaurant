@@ -7,14 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ui.AppBarConfiguration
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import fr.isen.idrisse.androiderestaurant.databinding.ActivityHomeBinding
 
-
-//enum class Category {ENTREE, PLAT, DESSERT}
 class HomeActivity : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityHomeBinding
 
 
@@ -25,6 +21,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         buttonsListener()
+        Log.d("Lifcylce", "HomeActivity onCreate")
 
     }
 
@@ -50,7 +47,7 @@ class HomeActivity : AppCompatActivity() {
 
 
 
-
+/*
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -67,7 +64,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-
+*/
 
     private fun buttonsListener(){
         binding.bouttonEntrees.setOnClickListener {
@@ -83,8 +80,7 @@ class HomeActivity : AppCompatActivity() {
             showCategory(Category.DESSERT)
                     }
     }
-    private fun showCategory(category: Category)
-    {
+    private fun showCategory(category: Category) {
         val intent = Intent(this, MenuActivity::class.java)
         intent.putExtra(MenuActivity.CATEGORYKEY, category)
         startActivity(intent)

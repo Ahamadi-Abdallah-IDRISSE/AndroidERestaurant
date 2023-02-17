@@ -13,14 +13,12 @@ import com.squareup.picasso.Picasso
 import fr.isen.idrisse.androiderestaurant.databinding.CellCustomBinding
 import fr.isen.idrisse.androiderestaurant.network.Plate
 
-class CustomAdapter(val items: List<Plate>, val clickListener:(Plate) -> Unit) : RecyclerView.Adapter<CustomAdapter.CellViewHolder>() {
-
-    class CellViewHolder (binding: CellCustomBinding) : RecyclerView.ViewHolder(binding.root) {
-        val textView:TextView = binding.textView
+class CustomAdapter(val items: List<Plate>, val clickListener: (Plate) -> Unit): RecyclerView.Adapter<CustomAdapter.CellViewHolder>() {
+    class CellViewHolder(binding: CellCustomBinding) : RecyclerView.ViewHolder(binding.root) {
+        val textView: TextView = binding.textView
         val imageView = binding.imageView
         val priceTextView = binding.priceTextView
-        val root : ConstraintLayout =  binding.root
-
+        val root = binding.root
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CellViewHolder {
@@ -35,18 +33,18 @@ class CustomAdapter(val items: List<Plate>, val clickListener:(Plate) -> Unit) :
     override fun onBindViewHolder(holder: CellViewHolder, position: Int) {
         val plate = items[position]
         holder.textView.text = plate.name
-        holder.priceTextView.text=plate.prices.first().price+" €"
+        holder.priceTextView.text = plate.prices.first().price + " €"
         Picasso.get().load(getThumbnail(plate)).into(holder.imageView)
         holder.root.setOnClickListener {
-        Log.d("item", "Click on ${position}")
-        clickListener(plate)
+            Log.d("click", "click on ${position}")
+            clickListener(plate)
         }
     }
 
-    private fun getThumbnail (plate :Plate): String? {
-        return if (plate.images.isNotEmpty() && plate.images.firstOrNull()?.isNotEmpty()==true) {
+    private fun getThumbnail(plate: Plate): String? {
+        return if (plate.images.isNotEmpty() && plate.images.firstOrNull()?.isNotEmpty() == true) {
             plate.images.firstOrNull()
-        }else {
+        } else {
             null
         }
     }
